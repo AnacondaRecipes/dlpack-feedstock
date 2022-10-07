@@ -14,12 +14,13 @@ cmake .. ${CMAKE_ARGS} \
       -DCMAKE_PREFIX_PATH=$PREFIX \
       -DCMAKE_INSTALL_PREFIX=$PREFIX \
       -DCMAKE_BUILD_TYPE=Release \
+      \
       -DBUILD_DOCS=OFF \
 
 
 # Build.
 echo "Building..."
-ninja -j$CPU_COUNT || exit 1
+ninja -j${CPU_COUNT} || exit 1
 
 
 # Perform tests.

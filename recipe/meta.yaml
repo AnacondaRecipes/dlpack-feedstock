@@ -1,4 +1,6 @@
 {% set version = "0.7" %}
+{% set build_number = "0" %}
+{% set sha_hash = "13f60672b324d081545f423d720737121c4952a9b90bdd49dc372a84c3fe96ee" %}
 
 package:
   name: dlpack
@@ -6,11 +8,10 @@ package:
 
 source:
   url: https://github.com/dmlc/dlpack/archive/v{{ version }}.tar.gz
-  sha256: 13f60672b324d081545f423d720737121c4952a9b90bdd49dc372a84c3fe96ee
+  sha256: {{ sha_hash }}
 
 build:
-  number: 0
-  skip: true  # [win]
+  number: {{ build_number }}
 
 requirements:
   build:
