@@ -22,8 +22,8 @@ requirements:
 
 test:
   commands:
-    - test -f ${PREFIX}/include/dlpack/dlpack.h             # [unix]
-    - if not exist %PREFIX%\include\dlpack\dlpack.h exit 1  # [win]
+    - test -f ${PREFIX}/include/dlpack/dlpack.h                     # [unix]
+    - if not exist %PREFIX%\Library\include\dlpack\dlpack.h exit 1  # [win]
 
 about:
   home: https://github.com/dmlc/dlpack
