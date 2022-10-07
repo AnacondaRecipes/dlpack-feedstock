@@ -16,7 +16,7 @@ cmake .. ${CMAKE_ARGS} \
       -DCMAKE_BUILD_TYPE=Release \
       \
       -DBUILD_DOCS=OFF \
-
+      -DBUILD_MOCK=OFF
 
 # Build.
 echo "Building..."
@@ -33,10 +33,6 @@ ninja -j${CPU_COUNT} || exit 1
 # Installing
 echo "Installing..."
 ninja install || exit 1
-
-# The following is a bit of a hack. A PR should be created to add mock to the installation target in the upstream CMakeLists.txt file.
-mkdir -p $PREFIX/bin
-cp ../bin/mock $PREFIX/bin/
 
 
 # Error free exit!

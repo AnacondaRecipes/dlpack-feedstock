@@ -16,7 +16,8 @@ cmake .. %CMAKE_ARGS% ^
       -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
       -DCMAKE_BUILD_TYPE=Release ^
       ^
-      -DBUILD_DOCS=OFF
+      -DBUILD_DOCS=OFF ^
+      -DBUILD_MOCK=OFF
 
 
 :: Build.
@@ -36,11 +37,6 @@ if errorlevel 1 exit /b 1
 :: Install.
 echo "Installing..."
 ninja install
-if errorlevel 1 exit /b 1
-
-:: The following is a bit of a hack. A PR should be created to add mock to the installation target in the upstream CMakeLists.txt file.
-mkdir  %PREFIX%\bin
-cp ..\bin\mock.exe %PREFIX%\bin\
 if errorlevel 1 exit /b 1
 
 
