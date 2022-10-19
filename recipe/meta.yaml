@@ -1,30 +1,29 @@
-{% set name = "dlpack" %}
 {% set version = "0.7" %}
+{% set build_number = "0" %}
+{% set sha_hash = "13f60672b324d081545f423d720737121c4952a9b90bdd49dc372a84c3fe96ee" %}
 
 package:
-  name: {{ name|lower }}
+  name: dlpack
   version: {{ version }}
 
 source:
   url: https://github.com/dmlc/dlpack/archive/v{{ version }}.tar.gz
-  sha256: 13f60672b324d081545f423d720737121c4952a9b90bdd49dc372a84c3fe96ee
+  sha256: {{ sha_hash }}
 
 build:
-  number: 0
-  skip: true  # [win]
+  number: {{ build_number }}
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - cmake
-    - make
+    - ninja-base
 
 test:
   commands:
-    - test -d ${PREFIX}/include/dlpack  # [unix]
-    - test -f ${PREFIX}/include/dlpack/dlpack.h  # [unix]
-    - test -f ${PREFIX}/bin/mock  # [unix]
+    - test -f ${PREFIX}/include/dlpack/dlpack.h                     # [unix]
+    - if not exist %PREFIX%\Library\include\dlpack\dlpack.h exit 1  # [win]
 
 about:
   home: https://github.com/dmlc/dlpack
