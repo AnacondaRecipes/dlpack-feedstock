@@ -1,17 +1,16 @@
-{% set version = "0.7" %}
-{% set build_number = "0" %}
-{% set sha_hash = "13f60672b324d081545f423d720737121c4952a9b90bdd49dc372a84c3fe96ee" %}
+{% set name = "dlpack" %}
+{% set version = "1.1" %}
 
 package:
-  name: dlpack
+  name: {{ name }}
   version: {{ version }}
 
 source:
   url: https://github.com/dmlc/dlpack/archive/v{{ version }}.tar.gz
-  sha256: {{ sha_hash }}
+  sha256: 2e3b94b55825c240cc58e6721e15b449978cbae21a2a4caa23058b0157ee2fb3
 
 build:
-  number: {{ build_number }}
+  number: 0
 
 requirements:
   build:
@@ -22,8 +21,11 @@ requirements:
 
 test:
   commands:
-    - test -f ${PREFIX}/include/dlpack/dlpack.h                     # [unix]
-    - if not exist %PREFIX%\Library\include\dlpack\dlpack.h exit 1  # [win]
+    - test -d ${PREFIX}/include/dlpack                   # [unix]
+    - test -f ${PREFIX}/include/dlpack/dlpack.h          # [unix]
+    - test -d ${PREFIX}/lib/cmake/dlpack                 # [unix]
+    - if not exist %LIBRARY_INC%\dlpack\dlpack.h exit 1  # [win]
+    - if not exist %LIBRARY_LIB%\cmake\dlpack exit 1     # [win]
 
 about:
   home: https://github.com/dmlc/dlpack
@@ -32,7 +34,8 @@ about:
   license_file: LICENSE
   summary: DLPack - Open In Memory Tensor Structure
   description: |
-    DLPack is an open in-memory tensor structure to for sharing tensor among frameworks
+    DLPack is an open in-memory tensor structure for sharing tensors among frameworks.
+  doc_url: https://dmlc.github.io/dlpack/latest
   dev_url: https://github.com/dmlc/dlpack
 
 extra:
