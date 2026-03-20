@@ -16,7 +16,8 @@ cmake .. ${CMAKE_ARGS} \
       -DCMAKE_BUILD_TYPE=Release \
       \
       -DBUILD_DOCS=OFF \
-      -DBUILD_MOCK=OFF
+      -DBUILD_MOCK=OFF \
+      -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 # Build.
 echo "Building..."
