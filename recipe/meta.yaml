@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/dmlc/dlpack/archive/v{{ version }}.tar.gz
+  url: https://github.com/dmlc/{{ name }}/archive/v{{ version }}.tar.gz
   sha256: 2e3b94b55825c240cc58e6721e15b449978cbae21a2a4caa23058b0157ee2fb3
 
 build:
@@ -40,6 +40,7 @@ about:
 
 extra:
   recipe-maintainers:
+    - leofang
     - marcelotrevisani
     - kkraus14
     - jakirkham
