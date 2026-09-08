@@ -1,28 +1,23 @@
 #!/bin/bash
-echo "Building ${PKG_NAME}."
-
+set -euo pipefail
 
 # Isolate the build.
-mkdir -p Build-${PKG_NAME}
-cd Build-${PKG_NAME} || exit 1
-
+mkdir -p build
+cd build
 
 # Generate the build files.
-echo "Generating the build files..."
+echo "Configuring the build..."
 cmake .. ${CMAKE_ARGS} \
-      -GNinja \
+      -G Ninja \
       -DCMAKE_PREFIX_PATH=$PREFIX \
       -DCMAKE_INSTALL_PREFIX=$PREFIX \
       -DCMAKE_BUILD_TYPE=Release \
-      \
       -DBUILD_DOCS=OFF \
-      -DBUILD_MOCK=OFF \
-      -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+      -DBUILD_MOCK=OFF
 
 # Build.
 echo "Building..."
-ninja -j${CPU_COUNT} || exit 1
-
+cmake --build . --parallel $CPU_COUNT
 
 # Perform tests.
 #  echo "Testing..."
@@ -30,12 +25,6 @@ ninja -j${CPU_COUNT} || exit 1
 #  path_to/test || exit 1
 #  ctest -VV --output-on-failure || exit 1
 
-
-# Installing
+# Install.
 echo "Installing..."
-ninja install || exit 1
-
-
-# Error free exit!
-echo "Error free exit!"
-exit 0
+cmake --install .

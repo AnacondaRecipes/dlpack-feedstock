@@ -1,31 +1,22 @@
-:: cmd
-echo "Building %PKG_NAME%."
-
-
 :: Isolate the build.
-mkdir Build-%PKG_NAME%
-cd Build-%PKG_NAME%
+mkdir build
+cd build
 if errorlevel 1 exit /b 1
 
-
 :: Generate the build files.
-echo "Generating the build files..."
+echo "Configuring the build..."
 cmake .. %CMAKE_ARGS% ^
-      -G"Ninja" ^
+      -G "Ninja" ^
       -DCMAKE_PREFIX_PATH=%LIBRARY_PREFIX% ^
       -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
       -DCMAKE_BUILD_TYPE=Release ^
-      ^
       -DBUILD_DOCS=OFF ^
-      -DBUILD_MOCK=OFF ^
-      -DCMAKE_POLICY_VERSION_MINIMUM=3.5
-
+      -DBUILD_MOCK=OFF
 
 :: Build.
 echo "Building..."
-ninja -j%CPU_COUNT%
+cmake --build . --parallel %CPU_COUNT%
 if errorlevel 1 exit /b 1
-
 
 :: Perform tests.
 ::  echo "Testing..."
@@ -34,13 +25,7 @@ if errorlevel 1 exit /b 1
 ::  ctest -VV --output-on-failure
 ::  if errorlevel 1 exit /b 1
 
-
 :: Install.
 echo "Installing..."
-ninja install
+cmake --install .
 if errorlevel 1 exit /b 1
-
-
-:: Error free exit.
-echo "Error free exit!"
-exit 0
